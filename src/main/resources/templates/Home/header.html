@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Gestion des Comptes</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../static/style.css"
+          th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="../static/bootstrapp.css"
+          th:href="@{/bootstrapp.css}"/>
+    <link rel="stylesheet" href="../static/fontawesome.css"
+          th:href="@{/fontawesome.css}"/>
+    <style>
+        .btnn{
+            background-color: #172974;
+            border-color: yellow;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!--<li><a th:href="@{/userImpl/index}">chercher</a></li>
+        <li><a th:href="@{/admin/add}">produits</a></li>
+        <li><a th:href="@{/login?logout}" th:inline="text">
+            [[${#httpServletRequest.remoteUser}]] Logout-->
+        <div class="navbar navbar-dark bg-hamza navbar-expand-lg">
+            <a class="navbar-brand" th:href="@{/}">BANK BANK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <!--<li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/operations}">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/comptes}">Comptes</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{/clients}">Clients</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{/listGroupes}">Groupes</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{/listEmployes}">Employe</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success btnn my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/login?logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+</body>
+</html>

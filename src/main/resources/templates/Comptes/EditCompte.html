@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Banque</title>
+    <style>
+        .btn2{
+            background-color:#172974;
+        }
+    </style>
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+
+<div class="row">
+
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-9">
+        <div layout:fragment="content" style="padding: 10px">
+            <h3>Modifier le compte</h3>
+            <hr>
+            <div class="row pb-2">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card">
+                        <div class="card-header bg-primary">
+
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/SaveEdit}" method="get">
+                                <input class="form-control" type="hidden" name="iden1" th:value="${cpt.codeCompte}"/>
+                                <div class="form-group">
+                                    <label>Identifiant :</label>
+                                    <input class="form-control" type="text" name="iden" th:value="${cpt.codeCompte}"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Client :</label>
+                                    <select name="cl" class="custom-select">
+                                        <option th:each="c:${cl}" th:value="${c.codeClient}" th:text="${c.nomClient}"></option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <input type="radio" name="typeC" value="CC" checked="checked" onchange="document.getElementById('forT').style.display='none';document.getElementById('forD').style.display='block'"/>
+                                    <label>Courant</label>
+                                    <input type="radio" name="typeC" value="CE" onchange="document.getElementById('forD').style.display='none';document.getElementById('forT').style.display='block'"/>
+                                    <label>Epargne</label>
+
+                                </div>
+                                <div id="forD" style="display: block" class="form-group">
+                                    <label>Decouverte :</label>
+                                    <input class="form-control" type="number" name="D" />
+                                </div>
+                                <div id="forT" style="display: none" class="form-group">
+                                    <label>Taux :</label>
+                                    <input class="form-control" type="number" name="T"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Sold :</label>
+                                    <input class="form-control" type="number" name="sold" th:value="${cpt.solde}"/>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary btn2 ml-1">Save</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    </div>
+
+</div>
+
+</body>
+
+
+
+
+
+
+
+
+

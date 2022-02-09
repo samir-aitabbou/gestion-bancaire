@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Gestion des Comptes</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../static/style.css"       th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="../static/bootstrapp.css"  th:href="@{/bootstrapp.css}"/>
+    <link rel="stylesheet" href="../static/fontawesome.css" th:href="@{/fontawesome.css}"/>
+
+    <link rel="stylesheet"  th:href="@{/BankBank.css}"/>
+    <link rel="stylesheet"  th:href="@{/Routation.css}"/>
+
+    <link rel="stylesheet" href="homePage2.css">
+
+    <style>
+        .btnn{
+            background-color: #172974;
+            border-color: yellow;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+
+<div class="row">
+
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-9">
+        <h1 contenteditable="false" class="titre"><i class="fa fa-cog fa-spin" style="color: red"></i>Bank Bank</h1>
+        <div class="box">
+            <span style="--i:1;"> <img th:src="@{img/cyber.png}"> </span>
+            <span style="--i:2;"> <img th:src="@{img/analytique.png}"> </span>
+            <span style="--i:3;"> <img th:src="@{img/argent.png}"> </span>
+            <span style="--i:4;"> <img th:src="@{img/base-de-donnees.png}"> </span>
+            <span style="--i:5;"> <img th:src="@{img/big-data.png}"> </span>
+            <span style="--i:6;"> <img th:src="@{img/egalite.png}"> </span>
+            <span style="--i:7;"> <img th:src="@{img/performance.png}"> </span>
+            <span style="--i:8;"> <img th:src="@{img/service-de-chambre.png}"> </span>
+        </div>
+    </div>
+
+</div>
+<div th:insert="Home/footer"></div>
+</body>
+
+

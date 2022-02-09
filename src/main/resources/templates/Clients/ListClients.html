@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Banque</title>
+    <style>
+        .btn2{
+            background-color:#172974;
+        }
+        .col1{
+            color:#172974;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+          rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+
+<div class="row">
+
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-8">
+        <h3>Les Clients</h3>
+        <hr>
+        <div class="row pb-2">
+            <div class="col-6">
+                <form th:action="@{/listClients}" method="get" class="form-inline">
+                    <div class="form-group">
+                        <label>Mot Clé :</label>
+                        <input type="text" class="form-control" name="motC" style="border-color: rgba(0,0,254,0.57)" th:value="${motC}">
+                        <button type="submit" class="btn btn-success btn2 ml-1">Rech</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-2 offset-4">
+                <div>
+                    <a th:href="@{/AddC}" >Add Client<i class="bi bi-calendar-plus-fill"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead class="table-success">
+                <tr>
+                    <th>CodeClient</th>
+                    <th>NomClient</th>
+                    <th rowspan="2">Action</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="p:${listClients}">
+                    <td th:text="${p.codeClient}"></td>
+                    <td><a th:text="${p.nomClient}" th:href="@{/compteClient(id=${p.codeClient},page=${pageCourante},size=${size},motC=${motC})}"></a></td>
+                    <td><a style="color: red" onclick="return confirm('Etes vous Sure ???')" th:href="@{/deleteC(id=${p.codeClient},page=${pageCourante},size=${size},motC=${motC})}">Delete</a></td>
+                    <td><a style="color: green" th:href="@{/editC(id=${p.codeClient},page=${pageCourante},size=${size},motC=${motC})}">Edit</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li th:each="page,status:${pages}" class="page-item">
+                    <a th:class="${pageCourante}==${status.index}?'active1':'page-link'" th:href="@{/listClients(motC=${motC},page=${status.index},size=${size})}" th:text="${status.index}"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div>
+            <div class="card mb-2" th:if="${LCC}">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-success">
+                        <tr>
+                            <th>codeCompte</th>
+                            <th>Sold</th>
+                            <th>dateCreation</th>
+                            <th>Type</th>
+                            <th rowspan="2">Action</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="p:${LCC}">
+                            <td><a th:text="${p.codeCompte}" th:href="@{/opperations(code=${p.codeCompte})}"></a></td>
+                            <td th:text="${p.solde}"></td>
+                            <td th:text="${p.dateCreation}"></td>
+                            <td th:text="${p.class.simpleName}"></td>
+                            <td><a style="color: red" onclick="return confirm('Etes vous Sure ???')" th:href="@{/deleteCC(id=${p.codeCompte},page=${pageCourante},size=${size},motC=${motC})}">Delete</a></td>
+                            <td><a style="color: green" th:href="@{/editCC(id=${p.codeCompte},page=${pageCourante},size=${size},motC=${motC})}">Edit</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+                crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.1/cjs/popper.min.js"
+                integrity="sha256-T3bYsIPyOLpEfeZOX4M7J59ZoDMzuYFUsPiSN3Xcc2M=" crossorigin="anonymous"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                crossorigin="anonymous"></script>
+
+    </div>
+
+</div>
+
+</body>

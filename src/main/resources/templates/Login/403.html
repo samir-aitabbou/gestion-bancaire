@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Gestion des Compte</title>
+    <link rel="stylesheet" href="../static/bootstrapp.css" th:href="@{bootstrapp.css}"/>
+
+    <link rel="stylesheet" href="../static/style.css" th:href="@{style.css}"/>
+
+
+</head>
+<body>
+
+<div layout:fragment="content" class="col-md-6 offset-3">
+
+    <div class="row" style="margin-top: 2%">
+        <div class="card">
+            <div class="card-header" style="background-color: rgba(255,51,49,0.73)">
+                Problème d'autorisation
+            </div>
+            <div class="card-body">
+                <h3 class="red">Vous n'etes pas autorisé à accéder à cette ressource  !!!!!</h3>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

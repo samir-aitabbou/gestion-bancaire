@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>AjoutClient</title>
+
+    <style>
+        .btn2{
+            background-color:#172974;
+        }
+    </style>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+<div class="row">
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-9">
+        <!--<section layout:fragment="content">-->
+        <div layout:fragment="content" style="padding: 10px">
+            <h3>Ajouter un Employe</h3>
+            <hr>
+            <div class="row pb-2">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card">
+                        <div class="card-header bg-success">
+
+                        </div>
+                        <div class="card-body">
+
+                            <form th:action="@{/addEmploye}"  class="text-center" th:object="${employe}" method="post">
+                                <label>Nom de l'employe</label>
+                                <input type="text" class="form-control"  th:field="*{nomEmploye}">
+                                <label>Sup de l'employe</label>
+
+<!--                                <input type="text" class="form-control" name="employeSup" th:field="*{employeSup}" id="employeSup">-->
+
+                                    <select  th:field="*{employeSup}" class="custom-select">
+                                        <option th:each="e:${employes}" th:value="${e.codeEmploye}" th:text="${e.nomEmploye}"></option>
+                                    </select>
+
+<!--                                <select  th:field="*{groupes}" class="custom-select">-->
+<!--                                    <option th:each="g:${Listegroupes}" th:value="${g.codeGroupe}" th:text="${g.nomGroupe}"></option>-->
+<!--                                </select>-->
+<!--                                <select  name="groupes" class="custom-select">-->
+<!--                                    <option th:each="g:${Listegroupes}" th:value="${g.codeGroupe}" th:text="${g.nomGroupe}"></option>-->
+<!--                                </select>-->
+
+                                <select name="groupes" class="form-select mt-4" multiple>
+                                    <option
+                                            th:each="g:${Listegroupes}"
+                                            th:value="${g.codeGroupe}"
+                                            th:text="${g.nomGroupe}">
+                                    </option>
+                                </select>
+
+
+
+                                <input type="submit" class="btn btn-info mt-5" value="Ajouter">
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--</section>-->
+    </div>
+
+</div>
+
+
+</body>

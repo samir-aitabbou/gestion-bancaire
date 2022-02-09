@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../static/style.css"
+          th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="../static/bootstrapp.css"
+          th:href="@{/bootstrapp.css}"/>
+    <link rel="stylesheet" href="../static/fontawesome.css"
+          th:href="@{/fontawesome.css}"/>
+    <style>
+        .btnn{
+            background-color: #172974;
+            border-color: yellow;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+<!--<div sec:authorize="hasRole('USER')" class="row">
+
+    <div class="offset-md-1 col-md-10">
+        <section layout:fragment="content">
+
+        </section>
+    </div>
+
+</div>-->
+
+ <div sec:authorize="hasRole('ADMIN')" class="row">
+        <div style="display: none" class="d-sm-block">
+            <div class="bg-hamza2" style="height: 560px">
+
+                <div class="card bg-hamza2">
+                    <div class="text-center">
+                        <img th:src="@{img/Bank.png}"  width="100" height="100">
+                    </div>
+
+                    <div class="card-body text-center">
+                        <span class="bg-info text-white px-2 py-1 rounded" >Services ET Securité </span>
+                    </div>
+                </div>
+
+                <div id="list-example" class="list-group">
+                    <a class="list-group-item list-group-item-action" th:href="@{/AddC}">Ajouter Client</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/AddCompte}">Ajouter Compte</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/AddG}">Ajouter Groupe</a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/AddE}">Ajouter Employe</a>
+                </div>
+            </div>
+
+        </div>
+
+</div>
+</body>
+</html>

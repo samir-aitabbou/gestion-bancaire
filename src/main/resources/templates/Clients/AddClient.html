@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>AjoutClient</title>
+
+    <style>
+        .btn2{
+            background-color:#172974;
+        }
+    </style>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+<div class="row">
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-9">
+        <!--<section layout:fragment="content">-->
+        <div layout:fragment="content" style="padding: 10px">
+            <h3>Ajouter un Client</h3>
+            <hr>
+            <div class="row pb-2">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card">
+                        <div class="card-header bg-success">
+
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/addClient}" method="post">
+<!--                                <div class="form-group">-->
+<!--                                    <label>codeClient :</label>-->
+<!--                                    <input type="text" class="form-control" name="codeClient" th:value="${client.codeClient}" >-->
+<!--                                    <span class="red" th:errors="${client.codeClient}"></span>-->
+<!--                                </div>-->
+                                <div class="form-group">
+                                    <label>nomClient :</label>
+                                    <input type="text" class="form-control" name="nomClient" th:value="${client.nomClient}" required>
+                                    <span class="red" th:errors="${client.nomClient}"></span>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn2 ml-1">Save</button>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--</section>-->
+    </div>
+
+</div>
+
+
+</body>

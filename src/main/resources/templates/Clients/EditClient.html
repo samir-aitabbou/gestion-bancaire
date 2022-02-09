@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Banque</title>
+    <style>
+        .btn2{
+            background-color:#172974;
+        }
+    </style>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+
+<div class="row">
+
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-9">
+        <div layout:fragment="content" style="padding: 10px">
+            <h3>Modifier les informations du Client</h3>
+            <hr>
+            <div class="row pb-2">
+                <div class="col-md-10 offset-md-1">
+                    <div class="card">
+                        <div class="card-header bg-success">
+
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/SaveEdit}" method="post">
+                                <div class="form-group">
+                                    <label>codeClient :</label>
+                                    <input type="number" class="form-control" name="codeClient" th:value="${client.codeClient}" readonly>
+                                    <span class="red" th:errors="${client.codeClient}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>nomClient :</label>
+                                    <input type="text" class="form-control" name="nomClient" th:value="${client.nomClient}" required>
+                                    <span class="red" th:errors="${client.nomClient}"></span>
+                                </div>
+
+                                <!--<div class="form-group">
+                                    <label>Active :</label>
+                                    <input type="radio" class="form-control" name="active">
+                                    <span class="red" th:errors="${active}"></span>
+                                </div>-->
+
+                                <input type="hidden" th:value="${pageCourante}" name="p">
+                                <input type="hidden" th:value="${size}" name="s">
+                                <input type="hidden" th:value="${motC}" name="m">
+
+                                <button type="submit" class="btn btn-success btn2 ml-1">Save</button>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+                crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.1/cjs/popper.min.js"
+                integrity="sha256-T3bYsIPyOLpEfeZOX4M7J59ZoDMzuYFUsPiSN3Xcc2M=" crossorigin="anonymous"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                crossorigin="anonymous"></script>
+    </div>
+
+</div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+

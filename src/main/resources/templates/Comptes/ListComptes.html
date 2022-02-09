@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!-- declarer  thymeleaf-->
+<!-- gestion layoute-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Banque</title>
+    <style>
+        .btn2{
+            background-color:#172974;
+        }
+        .col1{
+            color:#172974;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+</head>
+
+<div th:insert="Home/header"></div>
+
+<body>
+
+<div class="row">
+
+    <div style="display: none" class="col-sm-3 d-sm-block">
+        <div th:insert="Home/SideBar"></div>
+    </div>
+
+    <div class="col-sm-9">
+        <div layout:fragment="content" style="padding: 10px">
+            <div sec:authorize="hasRole('ADMIN')">
+                <h3>La liste des Comptes</h3>
+                <hr>
+                <div class="row pb-2">
+
+                    <div class="col-6">
+                        <form th:action="@{/listComptes}" method="get" class="form-inline">
+                            <div class="form-group">
+                                <label>Mot Clé :</label>
+                                <input type="text" class="form-control" name="motC" th:value="${motC}">
+                                <button type="submit" class="btn btn-success btn2 ml-1">Recherche</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-2 offset-4" sec:authorize="hasRole('ADMIN')">
+                        <div>
+                            <!--<a th:href="@{/AddCompte}"><i class="fas fa-file-invoice fa-2x col1"></i></a>-->
+                            <a th:href="@{/AddCompte}">Add Count<i class="bi bi-calendar-plus-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card mb-2">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-success">
+                                <tr>
+                                    <th>codeCompte</th>
+                                    <th>Sold</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Taux/Découverte</th>
+                                    <th rowspan="3">Action</th>
+                                    <th></th><th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="p1:${listCC}">
+                                    <td><a th:text="${p1.codeCompte}" ></a></td>
+                                    <td th:text="${p1.solde}"></td>
+                                    <td th:text="${p1.dateCreation}"></td>
+                                    <td th:text="${p1.class.simpleName}"></td>
+                                    <td th:text="${p1.getDecouvert()}"></td>
+                                    <td><a style="color: red" onclick="return confirm('Etes vous Sure ???')" th:href="@{/deleteCC(id=${p1.codeCompte},page=${pageCourante},size=${size},motC=${motC})}">Delete</a></td>
+                                    <td><a style="color: green" th:href="@{/editCC(id=${p1.codeCompte},page=${pageCourante},size=${size},motC=${motC})}">Edit</a></td>
+                                    <!-- <td><a style="color: orange" th:href="@{/opperations(code=${p1.codeCompte})}">Operations</a></td>-->
+                                    <td><a style="color: orange" th:href="@{/consulterC(code=${p1.codeCompte})}">Operations</a></td>
+                                </tr>
+                                <tr th:each="p:${listCE}">
+                                    <td><a th:text="${p.codeCompte}"></a></td>
+                                    <td th:text="${p.solde}"></td>
+                                    <td th:text="${p.dateCreation}"></td>
+                                    <td th:text="${p.class.simpleName}"></td>
+                                    <td th:text="${p.getTaux()}"></td>
+                                    <td><a style="color: red" onclick="return confirm('Etes vous Sure ???')" th:href="@{/deleteCC(id=${p.codeCompte},page=${pageCourante},size=${size},motC=${motC})}">Delete</a></td>
+                                    <td><a style="color: green" th:href="@{/editCC(id=${p.codeCompte},page=${pageCourante},size=${size},motC=${motC})}">Edit</a></td>
+                                   <!-- <td><a style="color: orange" th:href="@{/opperations(code=${p1.codeCompte})}">Operations</a></td>-->
+                                    <td><a style="color: orange" th:href="@{/consulterC(code=${p.codeCompte})}">Operations</a></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+
+                        <li th:each="page,status:${pages2}" class="page-item">
+                            <a th:class="${pageCourante}==${status.index}?'active1':'page-link'" th:href="@{/listComptes(motC=${motC},page=${status.index},size=${size})}" th:text="${status.index}"></a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+<!--            <div sec:authorize="hasRole('USER')">-->
+<!--                <h3>La liste des Comptes</h3>-->
+<!--                <hr>-->
+<!--                <div class="row pb-2">-->
+
+<!--                    <div class="col-6">-->
+<!--                        <form th:action="@{/listComptes}" method="get" class="form-inline">-->
+<!--                            <div class="form-group">-->
+<!--                                <label>Mot Clé :</label>-->
+<!--                                <input type="text" class="form-control" name="motC" th:value="${motC}">-->
+<!--                                <button type="submit" class="btn btn-success btn2 ml-1">Rech</button>-->
+<!--                            </div>-->
+<!--                        </form>-->
+
+<!--                    </div>-->
+<!--                    <div class="col-2 offset-4" sec:authorize="hasRole('ADMIN')">-->
+<!--                        <div>-->
+
+<!--                            &lt;!&ndash;<a th:href="@{/AddCompte}"><i class="fas fa-file-invoice fa-2x col1"></i></a>&ndash;&gt;-->
+<!--                            <a th:href="@{/AddCompte}">Add Count<i class="bi bi-calendar-plus-fill"></i></a>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                    <div class="card mb-2">-->
+<!--                        <div class="card-header">-->
+<!--                        </div>-->
+<!--                        <div class="card-body">-->
+<!--                            <table class="table table-striped table-bordered">-->
+<!--                                <thead class="table-success">-->
+<!--                                <tr>-->
+<!--                                    <th>codeCompte</th>-->
+<!--                                    <th>Sold</th>-->
+<!--                                    <th>Date</th>-->
+<!--                                    <th>Type</th>-->
+<!--                                    <th>Taux/Découverte</th>-->
+<!--                                    <th rowspan="3">Action</th>-->
+<!--                                    <th></th><th></th>-->
+
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr th:each="p1:${listCC}">-->
+<!--                                    <td><a th:text="${p1.codeCompte}" ></a></td>-->
+<!--                                    <td th:text="${p1.solde}"></td>-->
+<!--                                    <td th:text="${p1.dateCreation}"></td>-->
+<!--                                    <td th:text="${p1.class.simpleName}"></td>-->
+<!--                                    <td th:text="${p1.getDecouvert()}"></td>-->
+<!--                                    <td><a style="color: orange" th:href="@{/consulterC(code=${p1.codeCompte})}">Operations</a></td>-->
+<!--                                </tr>-->
+<!--                                <tr th:each="p:${listCE}">-->
+<!--                                    <td><a th:text="${p.codeCompte}" ></a></td>-->
+<!--                                    <td th:text="${p.solde}"></td>-->
+<!--                                    <td th:text="${p.dateCreation}"></td>-->
+<!--                                    <td th:text="${p.class.simpleName}"></td>-->
+<!--                                    <td th:text="${p.getTaux()}"></td>-->
+<!--                                    <td><a style="color: orange" th:href="@{/consulterC(code=${p1.codeCompte})}">Operations</a></td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <nav aria-label="Page navigation example">-->
+<!--                    <ul class="pagination">-->
+<!--                        <li class="page-item">-->
+<!--                            <a class="page-link" href="#" aria-label="Previous">-->
+<!--                                <span aria-hidden="true">&laquo;</span>-->
+<!--                                <span class="sr-only">Previous</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li th:each="page,status:${pages2}" class="page-item">-->
+<!--                            <a th:class="${pageCourante}==${status.index}?'active1':'page-link'" th:href="@{/listComptes(motC=${motC},page=${status.index},size=${size})}" th:text="${status.index}"></a>-->
+<!--                        </li>-->
+<!--                        <li class="page-item">-->
+<!--                            <a class="page-link" href="#" aria-label="Next">-->
+<!--                                <span aria-hidden="true">&raquo;</span>-->
+<!--                                <span class="sr-only">Next</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </nav>-->
+
+<!--            </div>-->
+
+
+<!--        </div>-->
+
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    </div>
+
+</div>
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
